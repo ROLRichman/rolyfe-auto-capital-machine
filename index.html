@@ -1,1 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RO’Lyfe Real Estate Command Center</title>
 
+<style>
+:root{
+  --bg:#070b16;
+  --panel:#10182b;
+  --panel2:#0c1324;
+  --border:#263553;
+  --text:#f3f6fb;
+  --muted:#9eabc2;
+  --accent:#28d7a0;
+  --blue:#4da3ff;
+  --gold:#f5c451;
+  --red:#ff6b6b;
+  --shadow:0 12px 35px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at top right,rgba(40,215,160,.08),transparent 30%),
+    radial-gradient(circle at top left,rgba(77,163,255,.08),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.5;
+}
+
+.wrap{
+  max-width:1250px;
+  margin:auto;
+  padding:20px;
+}
+
+header{
+  background:linear-gradient(135deg,#111c33,#0b1222);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
+
+.brand{
+  font-size:30px;
+  font-weight:800;
+  letter-spacing:.3px;
+}
+
+.tagline{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.status{
+  border:1px solid var(--border);
+  background:#080e1b;
+  border-radius:10px;
+  padding:9px 13px;
+  font-size:13px;
+}
+
+.green{color:var(--accent)}
+.gold{color:var(--gold)}
+.blue{color:var(--blue)}
+.red{color:var(--red)}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
+
+.card.full{
+  grid-column:1/-1;
+}
+
+h1,h2,h3{
+  margin-top:0;
+}
+
+h2{
+  font-size:21px;
+}
+
+h3{
+  font-size:16px;
+  color:var(--accent);
+}
+
+.small{
+  color:var(--muted);
+  font-size:13px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:#080e1b;
+  color:var(--text);
+  outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:var(--accent);
+}
+
+button{
+  background:#17243d;
+  color:#fff;
+  border:1px solid var(--border);
+  padding:11px 15px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:700;
+  margin:3px;
+}
+
+button:hover{
+  border-color:var(--accent);
+}
+
+button.primary{
+  background:var(--accent);
+  color:#04130e;
+  border-color:var(--accent);
+}
+
+button.blueBtn{
+  background:var(--blue);
+  color:#06111d;
+}
+
+button.goldBtn{
+  background:var(--gold);
+  color:#1a1402;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.row3{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.metricGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+
+.metric{
+  background:#080e1b;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:13px;
+}
+
+.metric span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:4px;
+}
+
+.metric strong{
+  font-size:18px;
+}
+
+.tierGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+
+.tier{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px;
+  background:#0a1120;
+}
+
+.tier h3{
+  margin-bottom:5px;
+}
+
+.big{
+  font-size:27px;
+  font-weight:800;
+}
+
+.resultBox{
+  margin-top:15px;
+  border:1px solid var(--border);
+  background:#080e1b;
+  border-radius:12px;
+  padding:15px;
+}
+
+.good{
+  border-color:rgba(40,215,160,.45);
+}
+
+.warning{
+  border-color:rgba(245,196,81,.45);
+}
+
+.bad{
+  border-color:rgba(255,107,107,.45);
+}
+
+details{
+  background:#080e1b;
+  border:1px solid var(--border);
+  border-radius:11px;
+  margin:8px 0;
+  padding:10px 13px;
+}
+
+summary{
+  cursor:pointer;
+  font-weight:700;
+}
+
+.resourceGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+
+.resource{
+  display:block;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  text-decoration:none;
+  background:#0b1425;
+}
+
+.resource:hover{
+  border-color:var(--accent);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+}
+
+th,td{
+  border-bottom:1px solid var(--border);
+  padding:10px;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:var(--muted);
+}
+
+.footer{
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  padding:20px 0 35px;
+}
+
+.timer{
+  font-family:monospace;
+  color:var(--accent);
+}
+
+@media(max-width:850px){
+  .grid,
+  .tierGrid,
+  .resourceGrid{
+    grid-template-columns:1fr;
+  }
+
+  .metricGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .row,
+  .row3{
+    grid-template-columns:1fr;
+  }
+
+  .brand{
+    font-size:24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="brand">RO’Lyfe Real Estate Command Center™</div>
+  <div class="tagline">
+    Property Search • Deal Analysis • Funding • 3-Tier Offers • Investor Strategy
+  </div>
+
+  <div class="topbar">
+    <div class="status">
+      DATE: <span id="currentDate"></span>
+    </div>
+
+    <div class="status">
+      TIME: <span id="currentTime"></span>
+    </div>
+
+    <div class="status">
+      SESSION TIMER: <span class="timer" id="sessionTimer">00:00:00</span>
+    </div>
+
+    <div class="status green">
+      RO’Lyfe Deal Engine: READY
+    </div>
+  </div>
+</header>
+
+
+<!-- PROPERTY SEARCH -->
+
+<div class="card">
+  <h2>🔎 Property Search</h2>
+
+  <p class="small">
+    Search the public market, then bring the property numbers into the RO’Lyfe Deal Engine.
+  </p>
+
+  <div class="row">
+    <div>
+      <label>Property / Address / ZIP</label>
+      <input id="searchAddress" placeholder="123 Main St, Philadelphia PA">
+    </div>
+
+    <div>
+      <label>Search Type</label>
+      <select id="searchType">
+        <option value="zillow">Zillow</option>
+        <option value="redfin">Redfin</option>
+        <option value="google">Web Search</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="primary" onclick="searchProperty()">Search Property</button>
+
+  <button onclick="loadDemo()">Load Demo Property</button>
+
+  <div class="small" style="margin-top:10px">
+    Note: Zillow and Redfin may restrict iframe embedding. This engine uses external search links rather than pretending their websites can always be embedded.
+  </div>
+</div>
+
+
+<!-- PROPERTY INPUT -->
+
+<div class="card">
+  <h2>🏠 Property & Deal Inputs</h2>
+
+  <div class="row3">
+
+    <div>
+      <label>Property Address</label>
+      <input id="propertyAddress" value="123 Main St">
+    </div>
+
+    <div>
+      <label>Property State</label>
+      <select id="propertyState">
+        <option>PA</option>
+        <option>NJ</option>
+        <option>DE</option>
+        <option>MD</option>
+        <option>NY</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Property Type</label>
+      <select id="propertyType">
+        <option>Single Family</option>
+        <option>Multi-Family</option>
+        <option>Townhouse</option>
+        <option>Condo</option>
+        <option>Land</option>
+        <option>Commercial</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="row3">
+
+    <div>
+      <label>Purchase Price</label>
+      <input id="purchasePrice" type="number" value="125000" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>After Repair Value (ARV)</label>
+      <input id="arv" type="number" value="250000" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Estimated Rehab</label>
+      <input id="rehab" type="number" value="40000" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="row3">
+
+    <div>
+      <label>Closing Costs</label>
+      <input id="closingCosts" type="number" value="4100" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Holding Costs</label>
+      <input id="holdingCosts" type="number" value="2500" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Expected Resale Costs (%)</label>
+      <input id="resaleCostsPct" type="number" value="6.5" step=".1" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="metricGrid">
+
+    <div class="metric">
+      <span>Total Project Cost</span>
+      <strong id="tpc">$0</strong>
+    </div>
+
+    <div class="metric">
+      <span>ARV Margin</span>
+      <strong id="arvMargin">$0</strong>
+    </div>
+
+    <div class="metric">
+      <span>ARV LTV @ 70%</span>
+      <strong id="arv70">$0</strong>
+    </div>
+
+    <div class="metric">
+      <span>Deal Status</span>
+      <strong id="dealStatus">—</strong>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- BRIDGE / HARD MONEY ANALYSIS -->
+
+<div class="card">
+  <h2>🏦 RO’Lyfe Bridge / Hard Money Analyzer</h2>
+
+  <p class="small">
+    Educational underwriting model based on the entered assumptions. Actual lender terms, eligibility, rate, leverage, fees, and property restrictions must be confirmed by the lender.
+  </p>
+
+  <div class="row3">
+
+    <div>
+      <label>Est. FICO Score</label>
+      <input id="fico" value="680-699">
+    </div>
+
+    <div>
+      <label>Refinance?</label>
+      <select id="refi">
+        <option>No</option>
+        <option>Yes</option>
+      </select>
+    </div>
+
+    <div>
+      <label>HML LTV (ARV %)</label>
+      <input id="hmlLtv" type="number" value="70" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="row3">
+
+    <div>
+      <label>HML Rate (%)</label>
+      <input id="hmlRate" type="number" value="12" step=".1" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>HML Points (%)</label>
+      <input id="hmlPoints" type="number" value="3" step=".1" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>HML Admin Fee</label>
+      <input id="hmlAdmin" type="number" value="4000" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="row3">
+
+    <div>
+      <label>GAP Points (%)</label>
+      <input id="gapPoints" type="number" value="3" step=".1" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>GAP Rate (%)</label>
+      <input id="gapRate" type="number" value="8" step=".1" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Holding Period (Months)</label>
+      <input id="holdMonths" type="number" value="6" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="resultBox">
+
+    <div class="metricGrid">
+
+      <div class="metric">
+        <span>HML Loan @ ARV LTV</span>
+        <strong id="hmlLoan">$0</strong>
+      </div>
+
+      <div class="metric">
+        <span>HML Points</span>
+        <strong id="hmlPointCost">$0</strong>
+      </div>
+
+      <div class="metric">
+        <span>HML Interest</span>
+        <strong id="hmlInterest">$0</strong>
+      </div>
+
+      <div class="metric">
+        <span>HML Total Costs</span>
+        <strong id="hmlTotal">$0</strong>
+      </div>
+
+    </div>
+
+    <div id="bridgeMessage" class="resultBox warning">
+      Bridge analysis loading...
+    </div>
+
+  </div>
+</div>
+
+
+<!-- THREE TIER SETTINGS -->
+
+<div class="card">
+  <h2>🎯 Three-Tiered Offer Settings</h2>
+
+  <div class="row3">
+
+    <div>
+      <label>All Cash Offer (% ARV)</label>
+      <input id="cashPct" type="number" value="50" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Seller Carry Offer (% ARV)</label>
+      <input id="carryPct" type="number" value="65" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Down Payment (% Price)</label>
+      <input id="downPct" type="number" value="5" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="row3">
+
+    <div>
+      <label>Seller Carry Interest (%)</label>
+      <input id="carryRate" type="number" value="5" step=".1" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Amortization Term (Years)</label>
+      <input id="amortYears" type="number" value="30" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Seller Carry Balloon (Years)</label>
+      <input id="carryBalloon" type="number" value="4" oninput="calculateAll()">
+    </div>
+
+  </div>
+
+  <div class="row3">
+
+    <div>
+      <label>Seller Financing Offer (% ARV)</label>
+      <input id="sellerFinPct" type="number" value="75" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Seller Financing Interest (%)</label>
+      <input id="sellerFinRate" type="number" value="6" step=".1" oninput="calculateAll()">
+    </div>
+
+    <div>
+      <label>Seller Financing Balloon (Years)</label>
+      <input id="sellerFinBalloon" type="number" value="5" oninput="calculateAll()">
+    </div>
+
+  </div>
+</div>
+
+
+<!-- THREE TIER RESULTS -->
+
+<div class="card">
+  <h2>💰 Three-Tier Offer Engine</h2>
+
+  <div class="tierGrid">
+
+    <div class="tier">
+      <h3>🥇 TIER 1 — ALL CASH</h3>
+      <div class="big" id="cashOffer">$0</div>
+      <p class="small">
+        Target offer based on the selected percentage of ARV.
+      </p>
+
+      <div class="resultBox">
+        <strong>ARV:</strong> <span id="cashArv">$0</span><br>
+        <strong>Offer %:</strong> <span id="cashPercent">0%</span>
+      </div>
+    </div>
+
+
+    <div class="tier">
+      <h3>🥈 TIER 2 — SELLER CARRY</h3>
+      <div class="big" id="carryOffer">$0</div>
+
+      <div class="resultBox">
+        <strong>Down Payment:</strong>
+        <span id="carryDown">$0</span>
+        <br><br>
+
+        <strong>Seller-Carried Principal:</strong>
+        <span id="carryLoan">$0</span>
+        <br><br>
+
+        <strong>Monthly Payment:</strong>
+        <span id="carryMonthly">$0</span>
+        <br><br>
+
+        <strong>Balloon After:</strong>
+        <span id="carryBalloonAmount">$0</span>
+      </div>
+
+      <p class="small" id="carryExplanation"></p>
+    </div>
+
+
+    <div class="tier">
+      <h3>🥉 TIER 3 — SELLER FINANCING</h3>
+      <div class="big" id="sellerFinOffer">$0</div>
+
+      <div class="resultBox">
+        <strong>Down Payment:</strong>
+        <span id="sellerFinDown">$0</span>
+        <br><br>
+
+        <strong>Seller-Financed Principal:</strong>
+        <span id="sellerFinLoan">$0</span>
+        <br><br>
+
+        <strong>Monthly Payment:</strong>
+        <span id="sellerFinMonthly">$0</span>
+        <br><br>
+
+        <strong>Balloon After:</strong>
+        <span id="sellerFinBalloonAmount">$0</span>
+        <br><br>
+
+        <strong>Scheduled Payments:</strong>
+        <span id="sellerFinPayments">$0</span>
+        <br><br>
+
+        <strong>Total Revenue Through Balloon:</strong>
+        <span id="sellerFinRevenue">$0</span>
+      </div>
+
+      <p class="small" id="sellerFinExplanation"></p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PROFIT PROJECTION -->
+
+<div class="card">
+  <h2>📈 Exit / Resale Projection</h2>
+
+  <div class="metricGrid">
+
+    <div class="metric">
+      <span>Projected Resale</span>
+      <strong id="resale">$0</strong>
+    </div>
+
+    <div class="metric">
+      <span>Resale Costs</span>
+      <strong id="resaleCosts">$0</strong>
+    </div>
+
+    <div class="metric">
+      <span>Projected Net Sale</span>
+      <strong id="netSale">$0</strong>
+    </div>
+
+    <div class="metric">
+      <span>Projected Profit</span>
+      <strong id="projectedProfit">$0</strong>
+    </div>
+
+  </div>
+
+  <div class="resultBox">
+    <strong>Profit Test:</strong>
+    <span id="profitTest"></span>
+  </div>
+</div>
+
+
+<!-- CLIENT / DEAL INTAKE -->
+
+<div class="card">
+  <h2>🧾 Deal Intake</h2>
+
+  <div class="row">
+
+    <div>
+      <label>Client / Investor Name</label>
+      <input id="clientName" placeholder="Full Name">
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input id="clientEmail" placeholder="email@example.com">
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div>
+      <label>Phone</label>
+      <input id="clientPhone" placeholder="Phone">
+    </div>
+
+    <div>
+      <label>Deal Source</label>
+      <select id="dealSource">
+        <option>Direct Lead</option>
+        <option>Realtor / Agent</option>
+        <option>Contractor</option>
+        <option>Wholesaler</option>
+        <option>Investor</option>
+        <option>PropWire</option>
+        <option>Real Estate Bees</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+  </div>
+
+  <label>Deal Notes</label>
+  <textarea id="dealNotes" rows="4" placeholder="Property condition, seller situation, timeline, renter demand, contractor notes, etc."></textarea>
+
+  <button class="primary" onclick="downloadSummary()">📥 Download Deal Summary</button>
+  <button class="blueBtn" onclick="emailSummary()">📧 Email Summary</button>
+  <button class="goldBtn" onclick="textSummary()">📱 Text Summary</button>
+
+  <div id="actionMessage" class="small" style="margin-top:10px"></div>
+</div>
+
+
+<!-- EXAMPLE -->
+
+<div class="card">
+  <h2>📚 Built-In Example — Occupied Owner</h2>
+
+  <p class="small">
+    This example demonstrates how the three tiers work with a $250,000 ARV.
+  </p>
+
+  <table>
+    <tr>
+      <th>Strategy</th>
+      <th>Calculation</th>
+      <th>Result</th>
+    </tr>
+
+    <tr>
+      <td>All Cash</td>
+      <td>50% × $250,000</td>
+      <td><strong>$125,000</strong></td>
+    </tr>
+
+    <tr>
+      <td>Seller Carry</td>
+      <td>65% × $250,000</td>
+      <td><strong>$162,500</strong></td>
+    </tr>
+
+    <tr>
+      <td>Seller Financing</td>
+      <td>75% × $250,000</td>
+      <td><strong>$187,500</strong></td>
+    </tr>
+  </table>
+
+  <div class="resultBox">
+    <strong>Seller Carry Example:</strong><br>
+    $162,500 purchase price → 5% down = $8,125 → seller carries $154,375.
+    At 5% interest with 30-year amortization, the payment is approximately
+    $829/month with a 4-year balloon.
+  </div>
+
+  <div class="resultBox">
+    <strong>Seller Financing Example:</strong><br>
+    $187,500 purchase price → $0 down → seller carries $187,500.
+    At 6% interest with 30-year amortization, the payment is approximately
+    $1,124/month with a 5-year balloon.
+  </div>
+</div>
+
+
+<!-- RESOURCE HUB -->
+
+<div class="card">
+  <h2>🧰 RO’Lyfe Resource Hub</h2>
+
+  <details>
+    <summary>💰 Funding & Capital</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://privatemoneyexchange.com/aff-page/richman/" target="_blank">
+        Private Money Exchange
+      </a>
+
+      <a class="resource" href="https://www.7figurescredit.com/?a_aid=ROLFunding" target="_blank">
+        7 Figures Credit
+      </a>
+
+      <a class="resource" href="https://go.mypartner.io/business-financing/?ref=001Qk00000MkqgTIAR" target="_blank">
+        Business Financing
+      </a>
+
+      <a class="resource" href="https://my.americasfundingexperts.com/?id=1820217000190862001" target="_blank">
+        America's Funding Experts
+      </a>
+
+      <a class="resource" href="https://getyourbizloan.io/lp1?pu=recqKxJNkvD70xMqi" target="_blank">
+        Get Your Biz Loan
+      </a>
+
+      <a class="resource" href="https://getyourbizloan.io/lp2?pu=recqKxJNkvD70xMqi" target="_blank">
+        Get Your Biz Loan — LP2
+      </a>
+
+    </div>
+  </details>
+
+
+  <details>
+    <summary>🏠 Real Estate & Deal Resources</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://dashboard.realestatebees.com/ambassador/offers" target="_blank">
+        Real Estate Bees
+      </a>
+
+      <a class="resource" href="https://rebclick.com/AwVlzYE54P" target="_blank">
+        REB Resource
+      </a>
+
+      <a class="resource" href="https://rebclick.com/ZPeRlZxRNY" target="_blank">
+        REB Resource 2
+      </a>
+
+      <a class="resource" href="https://rootoflyfe.blnsoftware.com/" target="_blank">
+        RO’Lyfe Underwriting Portal
+      </a>
+
+      <a class="resource" href="https://www.consumerfinance.gov/rural-or-underserved-tool/#rural-or-underserved" target="_blank">
+        Rural / Underserved Tool
+      </a>
+
+      <a class="resource" href="https://eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do?pageAction=sfp" target="_blank">
+        USDA Eligibility
+      </a>
+
+    </div>
+  </details>
+
+
+  <details>
+    <summary>📊 RO’Lyfe Systems</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://rolrichman.github.io/rolyfe-market-terminal/" target="_blank">
+        RO’Lyfe Market Terminal
+      </a>
+
+      <a class="resource" href="https://rolrichman.github.io/rolyfe-machine/" target="_blank">
+        RO’Lyfe Machine
+      </a>
+
+      <a class="resource" href="https://sendfuse.com/login" target="_blank">
+        SendFuse
+      </a>
+
+      <a class="resource" href="https://rootholdingsgetfund.rfsitebuilder.com/" target="_blank">
+        RO’Lyfe Funding
+      </a>
+
+    </div>
+  </details>
+
+
+  <details>
+    <summary>🧾 Intake Forms</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://form.jotform.com/253154859148062" target="_blank">
+        RO’Lyfe Quick Docs
+      </a>
+
+      <a class="resource" href="https://form.jotform.com/252063354378055" target="_blank">
+        RO’Lyfe Intake
+      </a>
+
+    </div>
+  </details>
+
+
+  <details>
+    <summary>💳 Credit Resources</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://www.creditscoreiq.com/lander/bus?offercode=435404PA" target="_blank">
+        Credit Score IQ
+      </a>
+
+      <a class="resource" href="https://www.myscoreiq.com/get-fico-preferred.aspx?offercode=432142NZ" target="_blank">
+        MyScoreIQ
+      </a>
+
+      <a class="resource" href="https://www.identityiq.com/sc-securepreferred.aspx?offercode=431297MR" target="_blank">
+        IdentityIQ
+      </a>
+
+      <a class="resource" href="https://www.creditbuilderiq.com/lander/bus?offercode=437502WT" target="_blank">
+        CreditBuilderIQ
+      </a>
+
+      <a class="resource" href="https://www.listsource.com/homepage/index.html" target="_blank">
+        ListSource
+      </a>
+
+      <a class="resource" href="https://www.openskycc.com" target="_blank">
+        OpenSky
+      </a>
+
+      <a class="resource" href="https://www.tomocredit.com" target="_blank">
+        TomoCredit
+      </a>
+
+      <a class="resource" href="https://zolve.com" target="_blank">
+        Zolve
+      </a>
+
+      <a class="resource" href="https://www.growcredit.com" target="_blank">
+        Grow Credit
+      </a>
+
+      <a class="resource" href="https://www.discover.com/credit-cards/secured/" target="_blank">
+        Discover Secured
+      </a>
+
+      <a class="resource" href="https://www.capitalone.com/credit-cards/quicksilver-secured/" target="_blank">
+        Capital One Secured
+      </a>
+
+      <a class="resource" href="https://www.self.inc" target="_blank">
+        Self
+      </a>
+
+      <a class="resource" href="https://www.creditstrong.com" target="_blank">
+        CreditStrong
+      </a>
+
+    </div>
+  </details>
+
+
+  <details>
+    <summary>🛠️ Pennsylvania Business</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://hub.business.pa.gov/Login" target="_blank">
+        PA Business Hub
+      </a>
+
+      <a class="resource" href="https://hub.business.pa.gov/BusinessProfile/Summary/406181" target="_blank">
+        RO’Lyfe Business Profile
+      </a>
+
+      <a class="resource" href="https://www.pa.gov/search#q=Business%20Search%20Record%20(PA%20Dept%20of%20State)%20of%20Registered%20Office" target="_blank">
+        PA Business Search
+      </a>
+
+    </div>
+  </details>
+
+
+  <details>
+    <summary>🛡️ Credit Repair / Improvement</summary>
+
+    <div class="resourceGrid">
+
+      <a class="resource" href="https://funnel.asapcreditrepairusa.com/fast-results?affId=RichardsonLegagneur28158" target="_blank">
+        ASAP Credit Repair
+      </a>
+
+      <a class="resource" href="https://portal.asapcreditrepairusa.com/client-signup.php?referral_code=RichardsonLegagneur28158" target="_blank">
+        ASAP Client Signup
+      </a>
+
+      <a class="resource" href="https://portal.asapcreditrepairusa.com/client-signup-client.php?afcode=2238" target="_blank">
+        ASAP Client Portal
+      </a>
+
+    </div>
+  </details>
+
+</div>
+
+
+<!-- DISCLAIMER -->
+
+<div class="card">
+  <h2>⚠️ RO’Lyfe Deal Engine Notice</h2>
+
+  <p class="small">
+    This calculator is an educational and preliminary deal-analysis tool.
+    Calculations are estimates based on user-entered assumptions and are not
+    loan approvals, rate quotes, appraisals, legal advice, tax advice, or
+    guarantees of funding.
+  </p>
+
+  <p class="small">
+    Actual lender requirements may include credit, liquidity, experience,
+    property condition, location, title, valuation, lender exposure,
+    foreclosure proximity, loan limits, rehab limits, and other underwriting
+    requirements.
+  </p>
+
+  <p class="small">
+    RO’Lyfe operates as a funding/referral and deal-analysis resource and does
+    not represent itself as the lender unless specifically stated.
+  </p>
+</div>
+
+
+<div class="footer">
+  RO’Lyfe Real Estate Command Center™<br>
+  Funding. Credit. Strategy. Built for People Who Move With Purpose.
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   RO'LYFE REAL ESTATE COMMAND CENTER
+   Single-file version
+   ========================================================= */
+
+
+/* ---------- FORMATTERS ---------- */
+
+function money(value){
+  return new Intl.NumberFormat("en-US",{
+    style:"currency",
+    currency:"USD",
+    maximumFractionDigits:0
+  }).format(Number(value)||0);
+}
+
+function money2(value){
+  return new Intl.NumberFormat("en-US",{
+    style:"currency",
+    currency:"USD",
+    maximumFractionDigits:2
+  }).format(Number(value)||0);
+}
+
+function num(id){
+  return parseFloat(document.getElementById(id).value)||0;
+}
+
+
+/* ---------- LIVE DATE / TIME ---------- */
+
+function updateClock(){
+
+  const now=new Date();
+
+  document.getElementById("currentDate").textContent=
+    now.toLocaleDateString("en-US",{
+      weekday:"short",
+      month:"short",
+      day:"numeric",
+      year:"numeric"
+    });
+
+  document.getElementById("currentTime").textContent=
+    now.toLocaleTimeString("en-US");
+
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+
+/* ---------- SESSION TIMER ---------- */
+
+let sessionSeconds=0;
+
+setInterval(function(){
+
+  sessionSeconds++;
+
+  const h=String(Math.floor(sessionSeconds/3600)).padStart(2,"0");
+  const m=String(Math.floor((sessionSeconds%3600)/60)).padStart(2,"0");
+  const s=String(sessionSeconds%60).padStart(2,"0");
+
+  document.getElementById("sessionTimer").textContent=
+    `${h}:${m}:${s}`;
+
+},1000);
+
+
+/* ---------- MORTGAGE PAYMENT ---------- */
+
+function monthlyPayment(principal,annualRate,years){
+
+  if(principal<=0) return 0;
+
+  const r=(annualRate/100)/12;
+  const n=years*12;
+
+  if(r===0) return principal/n;
+
+  return principal*(r*Math.pow(1+r,n))/
+    (Math.pow(1+r,n)-1);
+}
+
+
+/* ---------- REMAINING BALANCE ---------- */
+
+function remainingBalance(principal,annualRate,years,payments){
+
+  if(principal<=0) return 0;
+
+  const r=(annualRate/100)/12;
+  const n=years*12;
+
+  if(r===0){
+    return Math.max(0,principal*(1-payments/n));
+  }
+
+  const payment=monthlyPayment(
+    principal,
+    annualRate,
+    years
+  );
+
+  return principal*Math.pow(1+r,payments)
+    -payment*((Math.pow(1+r,payments)-1)/r);
+}
+
+
+/* ---------- MAIN CALCULATOR ---------- */
+
+function calculateAll(){
+
+  const purchase=num("purchasePrice");
+  const arv=num("arv");
+  const rehab=num("rehab");
+  const closing=num("closingCosts");
+  const holding=num("holdingCosts");
+  const resalePct=num("resaleCostsPct");
+
+  /* TPC */
+
+  const tpc=
+    purchase+
+    rehab+
+    closing+
+    holding;
+
+  document.getElementById("tpc").textContent=money(tpc);
+
+  /* ARV MARGIN */
+
+  const arvMargin=arv-tpc;
+
+  document.getElementById("arvMargin").textContent=
+    money(arvMargin);
+
+  /* 70% ARV */
+
+  const arv70=arv*.70;
+
+  document.getElementById("arv70").textContent=
+    money(arv70);
+
+  /* DEAL STATUS */
+
+  const status=document.getElementById("dealStatus");
+
+  if(arv<=0){
+    status.textContent="ENTER ARV";
+    status.className="red";
+  }
+  else if(arvMargin>0){
+    status.textContent="POSITIVE";
+    status.className="green";
+  }
+  else{
+    status.textContent="REVIEW";
+    status.className="red";
+  }
+
+
+  /* ---------- BRIDGE MODEL ---------- */
+
+  const hmlLtv=num("hmlLtv");
+  const hmlRate=num("hmlRate");
+  const hmlPoints=num("hmlPoints");
+  const hmlAdmin=num("hmlAdmin");
+  const gapPoints=num("gapPoints");
+  const gapRate=num("gapRate");
+  const months=num("holdMonths");
+
+  const hmlLoan=arv*(hmlLtv/100);
+
+  const hmlPointCost=
+    hmlLoan*(hmlPoints/100);
+
+  const hmlInterest=
+    hmlLoan*(hmlRate/100)*(months/12);
+
+  const hmlTotal=
+    hmlPointCost+
+    hmlInterest+
+    hmlAdmin;
+
+  document.getElementById("hmlLoan").textContent=
+    money(hmlLoan);
+
+  document.getElementById("hmlPointCost").textContent=
+    money(hmlPointCost);
+
+  document.getElementById("hmlInterest").textContent=
+    money(hmlInterest);
+
+  document.getElementById("hmlTotal").textContent=
+    money(hmlTotal);
+
+
+  /* Bridge warning / analysis */
+
+  const bridgeMessage=
+    document.getElementById("bridgeMessage");
+
+  let bridgeText=
+    `At ${hmlLtv}% ARV leverage, the modeled HML loan is ${money(hmlLoan)}. `+
+    `Estimated points, interest and admin costs total approximately ${money(hmlTotal)} `+
+    `before any GAP financing or other lender-specific charges.`;
+
+  if(rehab > 49000){
+    bridgeText+=
+      ` Rehab entered: ${money(rehab)}. Some lenders may impose rehab holdback limits; confirm the actual lender's current requirements.`;
+  }
+
+  if(arv <= 0){
+    bridgeText="Enter an ARV to calculate the bridge scenario.";
+  }
+
+  bridgeMessage.textContent=bridgeText;
+
+
+  /* ---------- THREE TIER OFFERS ---------- */
+
+  const cashPct=num("cashPct");
+  const carryPct=num("carryPct");
+  const downPct=num("downPct");
+  const carryRate=num("carryRate");
+  const amortYears=num("amortYears");
+  const carryBalloonYears=num("carryBalloon");
+
+  const sellerFinPct=num("sellerFinPct");
+  const sellerFinRate=num("sellerFinRate");
+  const sellerFinBalloonYears=num("sellerFinBalloon");
+
+
+  /* Tier 1 */
+
+  const cashOffer=
+    arv*(cashPct/100);
+
+  document.getElementById("cashOffer").textContent=
+    money(cashOffer);
+
+  document.getElementById("cashArv").textContent=
+    money(arv);
+
+  document.getElementById("cashPercent").textContent=
+    cashPct+"%";
+
+
+  /* Tier 2 */
+
+  const carryOffer=
+    arv*(carryPct/100);
+
+  const carryDown=
+    carryOffer*(downPct/100);
+
+  const carryLoan=
+    carryOffer-carryDown;
+
+  const carryMonthly=
+    monthlyPayment(
+      carryLoan,
+      carryRate,
+      amortYears
+    );
+
+  const carryPayments=
+    carryBalloonYears*12;
+
+  const carryBalloonAmount=
+    remainingBalance(
+      carryLoan,
+      carryRate,
+      amortYears,
+      carryPayments
+    );
+
+  const carryScheduledPayments=
+    carryMonthly*carryPayments;
+
+  const carryTotalRevenue=
+    carryDown+
+    carryScheduledPayments+
+    carryBalloonAmount;
+
+
+  document.getElementById("carryOffer").textContent=
+    money(carryOffer);
+
+  document.getElementById("carryDown").textContent=
+    money(carryDown);
+
+  document.getElementById("carryLoan").textContent=
+    money(carryLoan);
+
+  document.getElementById("carryMonthly").textContent=
+    money2(carryMonthly);
+
+  document.getElementById("carryBalloonAmount").textContent=
+    money(carryBalloonAmount);
+
+  document.getElementById("carryExplanation").textContent=
+    `Buyer pays ${money(carryDown)} down. Seller carries ${money(carryLoan)} at `+
+    `${carryRate.toFixed(2)}% with ${amortYears}-year amortization and a `+
+    `${carryBalloonYears}-year balloon. ${carryPayments} payments. `+
+    `Estimated total seller revenue through balloon: ${money(carryTotalRevenue)}.`;
+
+
+  /* Tier 3 */
+
+  const sellerFinOffer=
+    arv*(sellerFinPct/100);
+
+  const sellerFinDown=0;
+
+  const sellerFinLoan=
+    sellerFinOffer;
+
+  const sellerFinMonthly=
+    monthlyPayment(
+      sellerFinLoan,
+      sellerFinRate,
+      amortYears
+    );
+
+  const sellerFinPaymentsCount=
+    sellerFinBalloonYears*12;
+
+  const sellerFinBalloonAmount=
+    remainingBalance(
+      sellerFinLoan,
+      sellerFinRate,
+      amortYears,
+      sellerFinPaymentsCount
+    );
+
+  const sellerFinScheduledPayments=
+    sellerFinMonthly*
+    sellerFinPaymentsCount;
+
+  const sellerFinRevenue=
+    sellerFinDown+
+    sellerFinScheduledPayments+
+    sellerFinBalloonAmount;
+
+
+  document.getElementById("sellerFinOffer").textContent=
+    money(sellerFinOffer);
+
+  document.getElementById("sellerFinDown").textContent=
+    money(sellerFinDown);
+
+  document.getElementById("sellerFinLoan").textContent=
+    money(sellerFinLoan);
+
+  document.getElementById("sellerFinMonthly").textContent=
+    money2(sellerFinMonthly);
+
+  document.getElementById("sellerFinBalloonAmount").textContent=
+    money(sellerFinBalloonAmount);
+
+  document.getElementById("sellerFinPayments").textContent=
+    money(sellerFinScheduledPayments);
+
+  document.getElementById("sellerFinRevenue").textContent=
+    money(sellerFinRevenue);
+
+  document.getElementById("sellerFinExplanation").textContent=
+    `Seller financing modeled at ${sellerFinRate.toFixed(2)}% with `+
+    `${amortYears}-year amortization and a ${sellerFinBalloonYears}-year balloon. `+
+    `${sellerFinPaymentsCount} scheduled payments. Total modeled seller revenue through balloon: `+
+    `${money(sellerFinRevenue)}.`;
+
+
+  /* ---------- RESALE ---------- */
+
+  const resale=arv;
+
+  const resaleCosts=
+    resale*(resalePct/100);
+
+  const netSale=
+    resale-resaleCosts;
+
+  const projectedProfit=
+    netSale-tpc;
+
+  document.getElementById("resale").textContent=
+    money(resale);
+
+  document.getElementById("resaleCosts").textContent=
+    money(resaleCosts);
+
+  document.getElementById("netSale").textContent=
+    money(netSale);
+
+  document.getElementById("projectedProfit").textContent=
+    money(projectedProfit);
+
+  const profitTest=
+    document.getElementById("profitTest");
+
+  if(projectedProfit>0){
+    profitTest.innerHTML=
+      `<span class="green">Positive modeled spread: ${money(projectedProfit)}</span>`;
+  }
+  else{
+    profitTest.innerHTML=
+      `<span class="red">Negative modeled spread: ${money(projectedProfit)}</span>`;
+  }
+
+}
+
+
+/* ---------- PROPERTY SEARCH ---------- */
+
+function searchProperty(){
+
+  const address=
+    document.getElementById("searchAddress").value.trim();
+
+  const type=
+    document.getElementById("searchType").value;
+
+  if(!address){
+    alert("Enter an address, ZIP code, or property search.");
+    return;
+  }
+
+  let url="";
+
+  if(type==="zillow"){
+    url=
+      "https://www.zillow.com/homes/"+
+      encodeURIComponent(address)+
+      "_rb/";
+  }
+
+  if(type==="redfin"){
+    url=
+      "https://www.redfin.com/stingray/do/query-location"+
+      "?location="+
+      encodeURIComponent(address);
+  }
+
+  if(type==="google"){
+    url=
+      "https://www.google.com/search?q="+
+      encodeURIComponent(address+" real estate");
+  }
+
+  window.open(url,"_blank");
+}
+
+
+/* ---------- DEMO PROPERTY ---------- */
+
+function loadDemo(){
+
+  document.getElementById("propertyAddress").value=
+    "123 Main St";
+
+  document.getElementById("propertyState").value=
+    "PA";
+
+  document.getElementById("propertyType").value=
+    "Single Family";
+
+  document.getElementById("purchasePrice").value=
+    205000;
+
+  document.getElementById("arv").value=
+    350000;
+
+  document.getElementById("rehab").value=
+    40000;
+
+  document.getElementById("closingCosts").value=
+    4100;
+
+  document.getElementById("holdingCosts").value=
+    2500;
+
+  document.getElementById("resaleCostsPct").value=
+    6.5;
+
+  calculateAll();
+
+  window.scrollTo({
+    top:document.getElementById("propertyAddress").offsetTop-20,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ---------- BUILD SUMMARY ---------- */
+
+function buildSummary(){
+
+  const address=
+    document.getElementById("propertyAddress").value;
+
+  const client=
+    document.getElementById("clientName").value;
+
+  const email=
+    document.getElementById("clientEmail").value;
+
+  const phone=
+    document.getElementById("clientPhone").value;
+
+  const source=
+    document.getElementById("dealSource").value;
+
+  const notes=
+    document.getElementById("dealNotes").value;
+
+  const arv=num("arv");
+
+  const cashOffer=arv*(num("cashPct")/100);
+  const carryOffer=arv*(num("carryPct")/100);
+  const sellerFinOffer=arv*(num("sellerFinPct")/100);
+
+  return `
+RO'LYFE REAL ESTATE COMMAND CENTER
+===================================
+
+PROPERTY
+--------
+Address: ${address}
+State: ${document.getElementById("propertyState").value}
+Type: ${document.getElementById("propertyType").value}
+
+CLIENT
+------
+Name: ${client}
+Email: ${email}
+Phone: ${phone}
+Source: ${source}
+
+DEAL INPUTS
+-----------
+Purchase Price: ${money(num("purchasePrice"))}
+ARV: ${money(arv)}
+Rehab: ${money(num("rehab"))}
+Closing Costs: ${money(num("closingCosts"))}
+Holding Costs: ${money(num("holdingCosts"))}
+Total Project Cost: ${document.getElementById("tpc").textContent}
+
+THREE-TIER OFFERS
+-----------------
+ALL CASH:
+${money(cashOffer)}
+
+SELLER CARRY:
+${money(carryOffer)}
+Down Payment: ${document.getElementById("carryDown").textContent}
+Seller-Carried Loan: ${document.getElementById("carryLoan").textContent}
+Monthly Payment: ${document.getElementById("carryMonthly").textContent}
+Balloon: ${document.getElementById("carryBalloonAmount").textContent}
+
+SELLER FINANCING:
+${money(sellerFinOffer)}
+Down Payment: ${document.getElementById("sellerFinDown").textContent}
+Seller-Financed Loan: ${document.getElementById("sellerFinLoan").textContent}
+Monthly Payment: ${document.getElementById("sellerFinMonthly").textContent}
+Balloon: ${document.getElementById("sellerFinBalloonAmount").textContent}
+Scheduled Payments: ${document.getElementById("sellerFinPayments").textContent}
+Total Revenue Through Balloon: ${document.getElementById("sellerFinRevenue").textContent}
+
+BRIDGE / HML MODEL
+------------------
+HML Loan: ${document.getElementById("hmlLoan").textContent}
+HML Points: ${document.getElementById("hmlPointCost").textContent}
+HML Interest: ${document.getElementById("hmlInterest").textContent}
+HML Estimated Costs: ${document.getElementById("hmlTotal").textContent}
+
+EXIT ANALYSIS
+-------------
+Projected Net Sale: ${document.getElementById("netSale").textContent}
+Projected Profit: ${document.getElementById("projectedProfit").textContent}
+
+NOTES
+-----
+${notes}
+
+IMPORTANT
+---------
+Preliminary educational analysis only.
+Actual lender terms, underwriting, valuation, eligibility,
+fees and financing are subject to lender confirmation.
+`;
+}
+
+
+/* ---------- DOWNLOAD ---------- */
+
+function downloadSummary(){
+
+  const summary=buildSummary();
+
+  const blob=new Blob(
+    [summary],
+    {type:"text/plain"}
+  );
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download=
+    "ROLyfe-Deal-Summary.txt";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  document.getElementById("actionMessage").textContent=
+    "Deal summary downloaded ✔️";
+}
+
+
+/* ---------- EMAIL ---------- */
+
+function emailSummary(){
+
+  const summary=buildSummary();
+
+  const email=
+    document.getElementById("clientEmail").value ||
+    "richman@rootoflyfe.com";
+
+  const subject=
+    "RO'Lyfe Real Estate Deal Summary";
+
+  window.location.href=
+    "mailto:"+encodeURIComponent(email)+
+    "?subject="+
+    encodeURIComponent(subject)+
+    "&body="+
+    encodeURIComponent(summary);
+
+}
+
+
+/* ---------- TEXT ---------- */
+
+function textSummary(){
+
+  const summary=buildSummary();
+
+  const phone=
+    document.getElementById("clientPhone").value;
+
+  if(!phone){
+    alert("Enter a phone number first.");
+    return;
+  }
+
+  window.location.href=
+    "sms:"+phone+
+    "?body="+
+    encodeURIComponent(summary);
+
+}
+
+
+/* ---------- INITIALIZE ---------- */
+
+calculateAll();
+
+</script>
+
+</body>
+        </html>
