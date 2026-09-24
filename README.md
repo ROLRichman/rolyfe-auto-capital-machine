@@ -10,9 +10,9 @@ The system is designed around one principle:
 
 ---
 
-https://rolrichman.github.io/rolyfe-real-estate-command-center/
+## https://rolrichman.github.io/rolyfe-real-estate-command-center/
 
-## 🎯 PURPOSE
+🎯 PURPOSE
 
 RO'Lyfe Real Estate Command Center is being developed as an official RO'Lyfe real-estate intelligence platform.
 
