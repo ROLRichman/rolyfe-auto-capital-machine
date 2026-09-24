@@ -69,3 +69,5 @@ RISK / DUE DILIGENCE
 DEAL PACKET
    ↓
 HUMAN DECISION
+
+https://rolrichman.github.io/rolyfe-real-estate-command-center/
