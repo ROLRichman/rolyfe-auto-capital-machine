@@ -1,99 +1,71 @@
-# RO’Lyfe Auto Capital Machine™
+# RO'Lyfe Real Estate Command Center™
 
-**Auction Intelligence • Vehicle Analysis • Buying Power • Capital Routing • Deal Execution**
+**Property Intelligence • Deal Analysis • Scenario Modeling • Capital Routing • Due Diligence**
 
-Live platform:
+The **RO'Lyfe Real Estate Command Center™** is a modular real-estate deal analysis and capital intelligence platform designed to help users research properties, model acquisition scenarios, evaluate financing structures, analyze potential returns, organize due diligence, and prepare deals for lenders, contractors, investors, buyers, and other partners.
 
-https://rolrichman.github.io/rolyfe-auto-capital-machine/
+The system is designed around one principle:
 
----
-
-## Overview
-
-RO’Lyfe Auto Capital Machine™ is a modular vehicle acquisition, auction analysis, buying-power, financing, and capital-routing platform built by RO’Lyfe.
-
-The system is designed to help clients and partners move from:
-
-Vehicle Opportunity
-→ Analysis
-→ Credit / Buying Power
-→ Auction Cost
-→ Maximum Bid
-→ Transport
-→ All-In Cost
-→ Financing
-→ Client Approval
-→ Purchase
-→ Delivery
-→ Inventory / Exit
-
-The platform is designed as an intelligence and workflow system rather than simply a vehicle-search website.
+> **Analyze the deal before committing the capital.**
 
 ---
 
-# Core Mission
+## 🎯 PURPOSE
 
-RO’Lyfe helps organize the vehicle acquisition process by bringing together:
+RO'Lyfe Real Estate Command Center is being developed as an official RO'Lyfe real-estate intelligence platform.
 
-- Vehicle research
-- Auction research
-- Vehicle condition analysis
-- Credit education
-- Buying-power analysis
-- Auction fee calculations
-- Transport estimates
-- Maximum-bid calculations
-- All-in acquisition cost
-- ROI / profit analysis
-- Inventory planning
+It combines:
+
+- Property research
+- Acquisition analysis
+- ARV analysis
+- Rehab estimates
+- All-in cost calculations
+- Offer scenarios
+- Seller financing
+- Seller carry
+- Cash acquisition
+- Bridge / HML scenarios
+- Auction analysis
+- Tax-lien research
+- Overage / excess-proceeds research
+- Profit and ROI modeling
 - Capital routing
-- Client approval
-- Purchase workflow
-- Deal documentation
+- Deal intake
+- Due diligence
+- Deal packets
+- Research resources
+- AI-assisted deal education
 
-The objective is to help clients understand the economics of a vehicle before committing capital.
+The objective is not simply to display property information.
+
+The objective is to turn a potential opportunity into a structured, understandable deal scenario.
 
 ---
 
-# Platform Architecture
+# 🧠 CORE CONCEPT
 
 ```text
-RO’LYFE AUTO CAPITAL MACHINE
-│
-├── CLIENT / DEAL INTAKE
-│
-├── VEHICLE SEARCH
-│
-├── VEHICLE ANALYZER
-│
-├── CREDIT CHECK
-│
-├── BUYING POWER
-│
-├── AUTO AUCTION
-│
-├── AUCTION FEE CALCULATOR
-│
-├── TRANSPORT CALCULATOR
-│
-├── ALL-IN COST
-│
-├── BID GUARD
-│
-├── ROI / PROFIT
-│
-├── INVENTORY ESTIMATOR
-│
-├── FINANCING
-│
-├── CAPITAL ROUTING
-│
-├── CLIENT APPROVAL
-│
-├── PURCHASE FLOW
-│
-├── DEAL PACKET
-│
-└── AI COMMAND CENTER
-    ├── JAMAL ATLAS
-    └── ROGER
+PROPERTY
+   ↓
+RESEARCH
+   ↓
+DEAL INTAKE
+   ↓
+PROPERTY / ASSET ANALYSIS
+   ↓
+SCENARIO MODELING
+   ↓
+ALL-IN COST
+   ↓
+OFFER / ACQUISITION ANALYSIS
+   ↓
+CAPITAL REQUIREMENT
+   ↓
+CAPITAL ROUTING
+   ↓
+RISK / DUE DILIGENCE
+   ↓
+DEAL PACKET
+   ↓
+HUMAN DECISION
