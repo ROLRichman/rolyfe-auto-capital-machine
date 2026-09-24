@@ -10,6 +10,8 @@ The system is designed around one principle:
 
 ---
 
+https://rolrichman.github.io/rolyfe-real-estate-command-center/
+
 ## 🎯 PURPOSE
 
 RO'Lyfe Real Estate Command Center is being developed as an official RO'Lyfe real-estate intelligence platform.
@@ -69,5 +71,3 @@ RISK / DUE DILIGENCE
 DEAL PACKET
    ↓
 HUMAN DECISION
-
-https://rolrichman.github.io/rolyfe-real-estate-command-center/
