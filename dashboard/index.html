@@ -1,1 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>RO’Lyfe Capital Intelligence Dashboard</title>
+
+  <meta
+    name="description"
+    content="RO’Lyfe Capital Intelligence Dashboard — property, vehicles, equipment, robotics, deal analysis, capital routing and due diligence."
+  >
+
+  <style>
+    :root {
+      --bg: #071018;
+      --bg-soft: #0b151f;
+      --card: #101d29;
+      --card-2: #132433;
+      --border: rgba(255,255,255,.10);
+      --text: #f4f7fa;
+      --muted: #9aaaba;
+      --accent: #37d67a;
+      --accent-soft: rgba(55,214,122,.12);
+      --blue: #4ca3ff;
+      --blue-soft: rgba(76,163,255,.12);
+      --gold: #f2c94c;
+      --gold-soft: rgba(242,201,76,.12);
+      --danger: #ff6b6b;
+      --shadow: 0 18px 45px rgba(0,0,0,.28);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(55,214,122,.08), transparent 30%),
+        radial-gradient(circle at top left, rgba(76,163,255,.07), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(7,16,24,.88);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #37d67a, #1677ff);
+      color: #061018;
+      font-weight: 900;
+      box-shadow: 0 8px 25px rgba(55,214,122,.18);
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      transition: .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(55,214,122,.25);
+      border-radius: 999px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: 18px 0 14px;
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 17px;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 17px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-weight: 750;
+      font-size: 13px;
+      transition: .2s ease;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #061018;
+      border-color: var(--accent);
+    }
+
+    .button-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .button-secondary {
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+
+    .button-secondary:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    /* SECTION */
+
+    section {
+      padding: 30px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 18px;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -.025em;
+    }
+
+    .section-heading p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 720px;
+    }
+
+    /* CARDS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: linear-gradient(
+        145deg,
+        rgba(19,36,51,.96),
+        rgba(12,24,35,.96)
+      );
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .asset-card {
+      min-height: 190px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: .2s ease;
+    }
+
+    .asset-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(55,214,122,.28);
+    }
+
+    .asset-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .asset-card h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+
+    .asset-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .card-link {
+      margin-top: 18px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* WORKFLOW */
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .workflow-step {
+      padding: 17px 12px;
+      text-align: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .workflow-number {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto 9px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .workflow-step strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .workflow-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    /* OPERATIONS */
+
+    .operations {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+
+    .operation-card {
+      padding: 22px;
+    }
+
+    .operation-card h3 {
+      margin: 0 0 7px;
+      font-size: 19px;
+    }
+
+    .operation-card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 13px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: rgba(255,255,255,.025);
+      font-size: 13px;
+    }
+
+    .link-item:hover {
+      background: rgba(255,255,255,.06);
+    }
+
+    .link-item span:last-child {
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    /* AI */
+
+    .ai-panel {
+      padding: 25px;
+      border-color: rgba(76,163,255,.24);
+      background:
+        radial-gradient(circle at top right, rgba(76,163,255,.10), transparent 35%),
+        var(--card);
+    }
+
+    .ai-label {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .ai-panel h2 {
+      margin: 7px 0 8px;
+      font-size: 25px;
+    }
+
+    .ai-panel p {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .ai-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .ai-action {
+      border: 1px solid rgba(76,163,255,.20);
+      background: var(--blue-soft);
+      color: #cfe7ff;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* PRINCIPLE */
+
+    .principle {
+      padding: 28px;
+      text-align: center;
+      border: 1px solid rgba(242,201,76,.20);
+      background: var(--gold-soft);
+      border-radius: var(--radius);
+    }
+
+    .principle-label {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .principle h2 {
+      margin: 9px 0 5px;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: -.03em;
+    }
+
+    .principle p {
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 650px;
+      font-size: 13px;
+    }
+
+    /* DISCLAIMER */
+
+    .disclaimer {
+      margin-top: 30px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 11px;
+      background: rgba(255,255,255,.025);
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 40px 0 55px;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    footer strong {
+      color: var(--text);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workflow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .operations {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links a:nth-child(n+4) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .nav {
+        min-height: 64px;
+      }
+
+      .brand-subtitle {
+        display: none;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 48px 0 28px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .asset-card {
+        min-height: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+
+      <a class="brand" href="../index.html">
+        <div class="brand-mark">RO</div>
+
+        <div class="brand-text">
+          <div class="brand-title">RO’LYFE CAPITAL INTELLIGENCE</div>
+          <div class="brand-subtitle">
+            Funding • Credit • Strategy • Built for People Who Move With Purpose
+          </div>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../real-estate/index.html">Real Estate</a>
+        <a href="../vehicles/index.html">Vehicles</a>
+        <a href="../capital/index.html">Capital</a>
+        <a href="../deal/index.html">Deals</a>
+        <a href="../robotics/index.html">Robotics</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+
+        <div class="eyebrow">
+          RO’LYFE COMMAND CENTER
+        </div>
+
+        <h1>
+          Find the Opportunity.<br>
+          Analyze the Deal.<br>
+          <span>Route the Capital.</span>
+        </h1>
+
+        <p>
+          A modular intelligence dashboard for researching opportunities,
+          analyzing assets, modeling acquisition scenarios, understanding
+          capital requirements, organizing due diligence, and preparing
+          structured deals for the appropriate funding or business pathway.
+        </p>
+
+        <div class="hero-actions">
+          <a
+            class="button button-primary"
+            href="../real-estate/index.html"
+          >
+            Open Real Estate Command Center
+          </a>
+
+          <a
+            class="button button-secondary"
+            href="../capital/index.html"
+          >
+            Explore Capital
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ASSET INTELLIGENCE -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-kicker">ASSET INTELLIGENCE</div>
+
+          <h2>Choose the opportunity you are analyzing</h2>
+
+          <p>
+            Each asset class has its own research, analysis, financing,
+            acquisition, deployment, and capital-routing workflow.
+          </p>
+        </div>
+
+
+        <div class="grid">
+
+          <!-- REAL ESTATE -->
+          <a
+            class="card asset-card"
+            href="../real-estate/index.html"
+          >
+            <div>
+              <div class="asset-icon">🏠</div>
+
+              <h3>Real Estate</h3>
+
+              <p>
+                Property research, ARV, rehab, acquisition,
+                offer scenarios, auctions, tax liens, overage,
+                due diligence, and capital analysis.
+              </p>
+            </div>
+
+            <div class="card-link">
+              Open Command Center →
+            </div>
+          </a>
+
+
+          <!-- VEHICLES -->
+          <a
+            class="card asset-card"
+            href="../vehicles/index.html"
+          >
+            <div>
+              <div class="asset-icon">🚘</div>
+
+              <h3>Vehicles</h3>
+
+              <p>
+                Auction analysis, vehicle economics, transport,
+                buying power, financing requirements, and
+                acquisition workflows.
+              </p>
+            </div>
+
+            <div class="card-link">
+              Open Vehicle Intelligence →
+            </div>
+          </a>
+
+
+          <!-- EQUIPMENT -->
+          <a
+            class="card asset-card"
+            href="../equipment/index.html"
+          >
+            <div>
+              <div class="asset-icon">⚙️</div>
+
+              <h3>Equipment</h3>
+
+              <p>
+                Equipment acquisition, business deployment,
+                financing pathways, operating economics,
+                and capital requirements.
+              </p>
+            </div>
+
+            <div class="card-link">
+              Open Equipment Intelligence →
+            </div>
+          </a>
+
+
+          <!-- ROBOTICS -->
+          <a
+            class="card asset-card"
+            href="../robotics/index.html"
+          >
+            <div>
+              <div class="asset-icon">🤖</div>
+
+              <h3>Robotics</h3>
+
+              <p>
+                Robotics opportunities, acquisition,
+                financing, deployment, partnerships,
+                and RaaS business models.
+              </p>
+            </div>
+
+            <div class="card-link">
+              Open Robotics Intelligence →
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- WORKFLOW -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-kicker">RO’LYFE WORKFLOW</div>
+
+          <h2>From opportunity to structured decision</h2>
+
+          <p>
+            The system is designed to organize the information before
+            capital is committed.
+          </p>
+        </div>
+
+
+        <div class="workflow">
+
+          <div class="workflow-step">
+            <div class="workflow-number">1</div>
+            <strong>Opportunity</strong>
+            <span>Find the asset</span>
+          </div>
+
+          <div class="workflow-step">
+            <div class="workflow-number">2</div>
+            <strong>Research</strong>
+            <span>Verify information</span>
+          </div>
+
+          <div class="workflow-step">
+            <div class="workflow-number">3</div>
+            <strong>Analysis</strong>
+            <span>Model the deal</span>
+          </div>
+
+          <div class="workflow-step">
+            <div class="workflow-number">4</div>
+            <strong>Scenario</strong>
+            <span>Compare structures</span>
+          </div>
+
+          <div class="workflow-step">
+            <div class="workflow-number">5</div>
+            <strong>Capital</strong>
+            <span>Identify requirements</span>
+          </div>
+
+          <div class="workflow-step">
+            <div class="workflow-number">6</div>
+            <strong>Decision</strong>
+            <span>Human review</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CAPITAL + DEAL OPERATIONS -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-kicker">CAPITAL + DEAL OPERATIONS</div>
+
+          <h2>Move an analyzed opportunity into execution</h2>
+
+          <p>
+            These systems connect the asset analysis to financing,
+            due diligence, documentation, and capital routing.
+          </p>
+        </div>
+
+
+        <div class="operations">
+
+          <!-- CAPITAL -->
+          <div class="card operation-card">
+
+            <h3>Capital Intelligence</h3>
+
+            <p>
+              Analyze financing structures and route opportunities
+              toward appropriate capital pathways.
+            </p>
+
+            <div class="link-list">
+
+              <a
+                class="link-item"
+                href="../capital/index.html"
+              >
+                <span>Capital Dashboard</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../capital/capital-routing.html"
+              >
+                <span>Capital Routing</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../capital/funding-scenarios.html"
+              >
+                <span>Funding Scenarios</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../capital/financing-analysis.html"
+              >
+                <span>Financing Analysis</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../capital/lender-matching.html"
+              >
+                <span>Lender Matching</span>
+                <span>→</span>
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <!-- DEAL -->
+          <div class="card operation-card">
+
+            <h3>Deal Operations</h3>
+
+            <p>
+              Organize the opportunity after preliminary analysis
+              and prepare it for the appropriate next step.
+            </p>
+
+            <div class="link-list">
+
+              <a
+                class="link-item"
+                href="../deal/index.html"
+              >
+                <span>Deal Dashboard</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../deal/intake.html"
+              >
+                <span>Deal Intake</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../deal/analysis.html"
+              >
+                <span>Deal Analysis</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../deal/due-diligence.html"
+              >
+                <span>Due Diligence</span>
+                <span>→</span>
+              </a>
+
+              <a
+                class="link-item"
+                href="../deal/deal-packet.html"
+              >
+                <span>Deal Packet</span>
+                <span>→</span>
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- AI -->
+    <section>
+      <div class="container">
+
+        <div class="card ai-panel">
+
+          <div class="ai-label">
+            RO’LYFE AI INTELLIGENCE LAYER
+          </div>
+
+          <h2>Explain the deal before you move the capital.</h2>
+
+          <p>
+            The AI layer is designed to help explain calculations,
+            summarize information, identify missing inputs, organize
+            questions, and prepare information for human review.
+            It does not replace lenders, attorneys, appraisers,
+            inspectors, tax professionals, or other qualified
+            professionals.
+          </p>
+
+          <div class="ai-actions">
+
+            <a class="ai-action" href="../ai/index.html">
+              Open RO’Lyfe AI
+            </a>
+
+            <span class="ai-action">
+              Explain this property
+            </span>
+
+            <span class="ai-action">
+              Explain my numbers
+            </span>
+
+            <span class="ai-action">
+              What should I verify?
+            </span>
+
+            <span class="ai-action">
+              Explain financing options
+            </span>
+
+            <span class="ai-action">
+              Prepare for lender review
+            </span>
+
+            <span class="ai-action">
+              Prepare for contractor review
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PRINCIPLE -->
+    <section>
+      <div class="container">
+
+        <div class="principle">
+
+          <div class="principle-label">
+            THE RO’LYFE PRINCIPLE
+          </div>
+
+          <h2>Analyze the deal before committing the capital.</h2>
+
+          <p>
+            The platform organizes research, assumptions, scenarios,
+            costs, financing requirements, risks, and supporting
+            information so the human decision-maker can evaluate
+            the opportunity with greater clarity.
+          </p>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- DISCLAIMER -->
+    <section>
+      <div class="container">
+
+        <div class="disclaimer">
+
+          <strong>Important:</strong>
+          RO’Lyfe Capital Intelligence is an educational,
+          analytical, research, and workflow platform. Calculations
+          are estimates based on user-provided assumptions and
+          available information. Financing, lending, property values,
+          rehabilitation costs, auction fees, taxes, insurance,
+          transportation, legal rights, returns, and other outcomes
+          are not guaranteed. Actual terms and eligibility depend on
+          the applicable lender, provider, property, transaction,
+          jurisdiction, documentation, and professional review.
+          Users should independently verify material information
+          before making financial, legal, real-estate, or business
+          decisions.
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container">
+
+      <strong>RO’Lyfe Capital Intelligence™</strong><br>
+
+      Funding. Credit. Strategy. Built for People Who Move With Purpose.
+
+      <br><br>
+
+      Rooted in Access. Built for Growth.
+
+    </div>
+
+  </footer>
+
+</body>
+  </html>
